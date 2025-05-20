@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Script de contrôle de défilement chargé en premier -->
+    <script src="/scroll-fix.js"></script>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>IndySafeBot - Public Safety Assistant</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        darkMode: 'class',
+        theme: {
+          extend: {}
+        }
+      }
+    </script>
+    <!-- Script pour désactiver les sauts de page et le défilement automatique -->
+    <script>
+      // Désactiver le défilement automatique du navigateur
+      if ('scrollRestoration' in history) {
+        history.scrollRestoration = 'manual';
+      }
+      
+      // Empêcher le défilement automatique lors du chargement de la page
+      window.addEventListener('load', function() {
+        // Maintenir la position de défilement
+        let savedPosition = sessionStorage.getItem('scrollPosition');
+        if (savedPosition) {
+          window.scrollTo(0, parseInt(savedPosition));
+        }
+        
+        // Empêcher le défilement automatique lors des clics
+        document.addEventListener('click', function(e) {
+          if (e.target.tagName.toLowerCase() === 'a' || e.target.tagName.toLowerCase() === 'button') {
+            e.preventDefault();
+            const href = e.target.getAttribute('href');
+            if (href && href !== '#') {
+              // Sauvegarder la position actuelle
+              sessionStorage.setItem('scrollPosition', window.scrollY.toString());
+            }
+            return false;
+          }
+        }, true);
+      });
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>
