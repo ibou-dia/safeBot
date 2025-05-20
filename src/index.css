@@ -26,13 +26,15 @@
 }
 
 html {
-  scroll-behavior: smooth; /* Réactiver le défilement fluide */
+  scroll-behavior: smooth; /* Défilement fluide */
   height: 100%;
   /* Permettre le défilement vertical tout en empêchant le débordement horizontal */
   overflow-y: visible;
   overflow-x: hidden;
   /* Contrôler le comportement de débordement pour éviter les rebonds */
   overscroll-behavior: auto;
+  /* Ajouter un décalage pour les ancres pour tenir compte du header fixe */
+  scroll-padding-top: 80px;
 }
 
 body {
